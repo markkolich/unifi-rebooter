@@ -14,39 +14,39 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.maven.version>3.6.3</project.maven.version>
 
-        <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
+        <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
         <maven-buildnumber-plugin.version>1.4</maven-buildnumber-plugin.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-        <maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
-        <maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
-        <maven-pmd-plugin.pmd.version>6.46.0</maven-pmd-plugin.pmd.version>
-        <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
-        <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
-        <maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.1.0</maven-surefire-plugin.version>
+        <maven-checkstyle-plugin.version>3.3.0</maven-checkstyle-plugin.version>
+        <maven-pmd-plugin.version>3.21.2</maven-pmd-plugin.version>
+        <maven-pmd-plugin.pmd.version>6.55.0</maven-pmd-plugin.pmd.version>
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+        <maven-dependency-plugin.version>3.5.0</maven-dependency-plugin.version>
+        <maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
         <maven-duplicate-finder-plugin.version>1.4.0</maven-duplicate-finder-plugin.version>
 
-        <slf4j-api.version>1.7.36</slf4j-api.version>
-        <logback.version>1.2.10</logback.version>
+        <slf4j.version>2.0.9</slf4j.version>
+        <logback.version>1.5.6</logback.version>
 
-        <curacao.version>6.5.1</curacao.version>
+        <curacao.version>7.0.0</curacao.version>
 
         <kolich-common.version>0.5</kolich-common.version>
 
-        <jetty.version>9.4.45.v20220203</jetty.version>
+        <jetty.version>9.4.54.v20240208</jetty.version>
 
-        <typesafe-config.version>1.4.2</typesafe-config.version>
+        <typesafe-config.version>1.4.3</typesafe-config.version>
 
-        <commons-lang3.version>3.12.0</commons-lang3.version>
-        <commons-text.version>1.9</commons-text.version>
-        <commons-io.version>2.11.0</commons-io.version>
+        <commons-lang3.version>3.14.0</commons-lang3.version>
+        <commons-text.version>1.12.0</commons-text.version>
+        <commons-io.version>2.16.1</commons-io.version>
         <commons-collections4.version>4.4</commons-collections4.version>
 
-        <guava.version>31.1-jre</guava.version>
+        <guava.version>33.2.1-jre</guava.version>
 
         <quartz.version>2.3.2</quartz.version>
 
-        <freemarker.version>2.3.31</freemarker.version>
+        <freemarker.version>2.3.33</freemarker.version>
 
         <htmlcompressor.version>1.5.2</htmlcompressor.version>
         <yuicompressor.version>2.4.8</yuicompressor.version>
@@ -55,14 +55,14 @@
         <jbcrypt.version>0.4</jbcrypt.version>
         <jsch.version>0.1.55</jsch.version>
 
-        <picocli.version>4.6.3</picocli.version>
+        <picocli.version>4.7.6</picocli.version>
 
-        <checkstyle.version>10.3</checkstyle.version>
+        <checkstyle.version>10.17.0</checkstyle.version>
 
         <!-- Test dependency versions -->
 
         <junit.jupiter.version>5.8.2</junit.jupiter.version>
-        <mockito-core.version>4.6.1</mockito-core.version>
+        <mockito-core.version>5.12.0</mockito-core.version>
     </properties>
 
     <issueManagement>
@@ -87,17 +87,17 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j-api.version}</version>
+            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>${slf4j-api.version}</version>
+            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>log4j-over-slf4j</artifactId>
-            <version>${slf4j-api.version}</version>
+            <version>${slf4j.version}</version>
         </dependency>
 
         <dependency>
@@ -114,6 +114,11 @@
         <dependency>
             <groupId>curacao</groupId>
             <artifactId>curacao</artifactId>
+            <version>${curacao.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>curacao</groupId>
+            <artifactId>curacao-servlet-javax</artifactId>
             <version>${curacao.version}</version>
         </dependency>
         <dependency>
@@ -512,6 +517,7 @@
                             <shadedArtifactAttached>true</shadedArtifactAttached>
                             <shadedClassifierName>runnable</shadedClassifierName>
                             <outputDirectory>dist</outputDirectory>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>
                 </executions>

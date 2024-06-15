@@ -75,7 +75,7 @@ Leave it running and watch your devices reboot as you have configured!
 
 ## Licensing
 
-Copyright (c) 2021 <a href="https://mark.koli.ch">Mark S. Kolich</a>.
+Copyright (c) 2024 <a href="https://mark.koli.ch">Mark S. Kolich</a>.
 
 All code in this project is freely available for use and redistribution under the <a href="http://opensource.org/comment/991">MIT License</a>.
 

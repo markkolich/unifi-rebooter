@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Mark S. Kolich
+ * Copyright (c) 2024 Mark S. Kolich
  * https://mark.koli.ch
  *
  * Permission is hereby granted, free of charge, to any person
@@ -29,10 +29,10 @@ package com.kolich.unifi.rebooter.mappers.response;
 import com.kolich.unifi.rebooter.components.freemarker.FreeMarkerContentToString;
 import com.kolich.unifi.rebooter.entities.freemarker.FreeMarkerContent;
 import com.kolich.unifi.rebooter.entities.freemarker.Utf8TextEntity;
+import curacao.core.servlet.HttpResponse;
 import curacao.mappers.response.AbstractControllerReturnTypeMapper;
 
 import javax.annotation.Nonnull;
-import javax.servlet.http.HttpServletResponse;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -47,7 +47,7 @@ public abstract class AbstractFreeMarkerContentAwareResponseMapper<T>
     }
 
     protected final void renderFreeMarkerContent(
-            final HttpServletResponse response,
+            final HttpResponse response,
             final FreeMarkerContent content) throws Exception {
         final String rendered = fmContentToString_.contentToString(content);
         renderEntity(response, new Utf8TextEntity(content.getEntityType(), content.getStatus(), rendered));

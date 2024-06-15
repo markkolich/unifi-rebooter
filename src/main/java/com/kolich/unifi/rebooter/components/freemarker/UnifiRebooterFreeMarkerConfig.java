@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Mark S. Kolich
+ * Copyright (c) 2024 Mark S. Kolich
  * https://mark.koli.ch
  *
  * Permission is hereby granted, free of charge, to any person
@@ -30,6 +30,7 @@ import com.kolich.unifi.rebooter.Application;
 import com.kolich.unifi.rebooter.exceptions.UnifiRebooterException;
 import curacao.annotations.Component;
 import curacao.annotations.Injectable;
+import curacao.core.servlet.ServletContext;
 import freemarker.cache.TemplateLookupContext;
 import freemarker.cache.TemplateLookupResult;
 import freemarker.cache.TemplateLookupStrategy;
@@ -37,7 +38,6 @@ import freemarker.cache.URLTemplateLoader;
 import freemarker.template.Configuration;
 import org.eclipse.jetty.util.resource.Resource;
 
-import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;

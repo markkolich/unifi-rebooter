@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Mark S. Kolich
+ * Copyright (c) 2024 Mark S. Kolich
  * https://mark.koli.ch
  *
  * Permission is hereby granted, free of charge, to any person
@@ -32,10 +32,10 @@ import com.kolich.unifi.rebooter.entities.freemarker.FreeMarkerContent;
 import com.kolich.unifi.rebooter.mappers.response.AbstractFreeMarkerContentAwareResponseMapper;
 import curacao.annotations.Injectable;
 import curacao.annotations.Mapper;
+import curacao.core.servlet.AsyncContext;
+import curacao.core.servlet.HttpResponse;
 
 import javax.annotation.Nonnull;
-import javax.servlet.AsyncContext;
-import javax.servlet.http.HttpServletResponse;
 
 @Mapper
 public final class FreeMarkerContentResponseMapper
@@ -54,7 +54,7 @@ public final class FreeMarkerContentResponseMapper
     @Override
     public void render(
             final AsyncContext context,
-            final HttpServletResponse response,
+            final HttpResponse response,
             @Nonnull final FreeMarkerContent content) throws Exception {
         renderFreeMarkerContent(response, content);
     }

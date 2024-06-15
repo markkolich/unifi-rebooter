@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Mark S. Kolich
+ * Copyright (c) 2024 Mark S. Kolich
  * https://mark.koli.ch
  *
  * Permission is hereby granted, free of charge, to any person
@@ -27,8 +27,8 @@
 package com.kolich.unifi.rebooter;
 
 import com.google.common.io.Resources;
-import curacao.CuracaoContextListener;
-import curacao.CuracaoDispatcherServlet;
+import curacao.servlet.javax.CuracaoJavaxContextListener;
+import curacao.servlet.javax.CuracaoJavaxDispatcherServlet;
 import org.eclipse.jetty.server.HttpConfiguration;
 import org.eclipse.jetty.server.HttpConnectionFactory;
 import org.eclipse.jetty.server.Server;
@@ -122,9 +122,9 @@ public final class Application {
         // this at runtime can easily access it.
         context.setAttribute(CONTEXT_ATTRIBUTE_BASE_RESOURCE, baseResource);
 
-        final ServletHolder curacaoHolder = new ServletHolder("curacao", CuracaoDispatcherServlet.class);
+        final ServletHolder curacaoHolder = new ServletHolder("curacao", CuracaoJavaxDispatcherServlet.class);
         curacaoHolder.setAsyncSupported(true); // Async supported = true
-        context.addEventListener(new CuracaoContextListener()); // Required
+        context.addEventListener(new CuracaoJavaxContextListener()); // Required
         context.addServlet(curacaoHolder, CURACAO_SERVLET_MAPPING_UNDER_CONTEXT);
 
         final ErrorPageErrorHandler errorHandler = new ErrorPageErrorHandler();
