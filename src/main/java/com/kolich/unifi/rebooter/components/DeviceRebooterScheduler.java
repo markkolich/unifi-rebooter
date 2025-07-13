@@ -35,13 +35,18 @@ import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.Trigger;
 
-import static com.kolich.unifi.rebooter.components.DeviceRebooterJob.*;
+import static com.kolich.unifi.rebooter.components.DeviceRebooterJob.HOSTNAME_JOB_DATA_MAP_KEY;
+import static com.kolich.unifi.rebooter.components.DeviceRebooterJob.ID_JOB_DATA_MAP_KEY;
+import static com.kolich.unifi.rebooter.components.DeviceRebooterJob.PASSWORD_JOB_DATA_MAP_KEY;
+import static com.kolich.unifi.rebooter.components.DeviceRebooterJob.USERNAME_JOB_DATA_MAP_KEY;
 import static org.quartz.CronScheduleBuilder.cronSchedule;
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
 
 @Component
 public final class DeviceRebooterScheduler implements CuracaoComponent {
+
+    private static final String TEST_CONNECTION_COMMAND = "hostname";
 
     private final DeviceRebooterConfig deviceRebooterConfig_;
 
@@ -55,11 +60,18 @@ public final class DeviceRebooterScheduler implements CuracaoComponent {
         quartzScheduler_ = deviceRebooterSchedulerFactory.getNewScheduler();
 
         for (final Device deviceToReboot : deviceRebooterConfig.getDevicesToReboot()) {
+            final String hostname = deviceToReboot.getHostname();
+            final String username = deviceToReboot.getUsername();
+            final String password = deviceToReboot.getPassword();
+
+            // Test connection
+            DeviceCommandExecutor.execute(hostname, username, password, TEST_CONNECTION_COMMAND);
+
             final JobDataMap jobDataMap = new JobDataMap();
             jobDataMap.put(ID_JOB_DATA_MAP_KEY, deviceToReboot.getId());
-            jobDataMap.put(HOSTNAME_JOB_DATA_MAP_KEY, deviceToReboot.getHostname());
-            jobDataMap.put(USERNAME_JOB_DATA_MAP_KEY, deviceToReboot.getUsername());
-            jobDataMap.put(PASSWORD_JOB_DATA_MAP_KEY, deviceToReboot.getPassword());
+            jobDataMap.put(HOSTNAME_JOB_DATA_MAP_KEY, hostname);
+            jobDataMap.put(USERNAME_JOB_DATA_MAP_KEY, username);
+            jobDataMap.put(PASSWORD_JOB_DATA_MAP_KEY, password);
 
             final JobDetail job = newJob(DeviceRebooterJob.class)
                     .setJobData(jobDataMap)

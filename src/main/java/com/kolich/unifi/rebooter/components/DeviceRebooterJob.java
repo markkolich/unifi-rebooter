@@ -26,17 +26,12 @@
 
 package com.kolich.unifi.rebooter.components;
 
-import com.jcraft.jsch.ChannelExec;
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.Session;
 import org.quartz.Job;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.ByteArrayOutputStream;
 
 public final class DeviceRebooterJob implements Job {
 
@@ -46,8 +41,6 @@ public final class DeviceRebooterJob implements Job {
     public static final String HOSTNAME_JOB_DATA_MAP_KEY = "hostname";
     public static final String USERNAME_JOB_DATA_MAP_KEY = "username";
     public static final String PASSWORD_JOB_DATA_MAP_KEY = "password";
-
-    private static final String EXEC_CHANNEL = "exec";
 
     private static final String REBOOT_CMD = "reboot";
 
@@ -61,28 +54,7 @@ public final class DeviceRebooterJob implements Job {
         final String password = jobDataMap.getString(PASSWORD_JOB_DATA_MAP_KEY);
 
         try {
-            final Session session = new JSch().getSession(username, hostname, 22);
-            try (AutoCloseable ignored = session::disconnect) {
-                session.setPassword(password);
-                session.setConfig("StrictHostKeyChecking", "no"); // ignore key issues
-                session.connect();
-
-                final ByteArrayOutputStream os = new ByteArrayOutputStream();
-
-                final ChannelExec channel = (ChannelExec) session.openChannel(EXEC_CHANNEL);
-                try (AutoCloseable ignored1 = channel::disconnect) {
-                    channel.setOutputStream(os);
-                    channel.setCommand(REBOOT_CMD); // Reboot! Beep boop boop
-                    channel.connect();
-
-                    // Wait until connected - sigh.
-                    while (channel.isConnected()) {
-                        Thread.sleep(100);
-                    }
-
-                    LOG.info("Successfully rebooted device: {}", hostname);
-                }
-            }
+            DeviceCommandExecutor.execute(hostname, username, password, REBOOT_CMD);
         } catch (final Exception e) {
             LOG.error("Failed to run device rebooter job: {}", hostname, e);
         }

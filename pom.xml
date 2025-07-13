@@ -27,22 +27,22 @@
         <maven-duplicate-finder-plugin.version>1.4.0</maven-duplicate-finder-plugin.version>
 
         <slf4j.version>2.0.9</slf4j.version>
-        <logback.version>1.5.16</logback.version>
+        <logback.version>1.5.18</logback.version>
 
         <curacao.version>7.1.0</curacao.version>
 
         <kolich-common.version>0.5</kolich-common.version>
 
-        <jetty.version>9.4.56.v20240826</jetty.version>
+        <jetty.version>9.4.57.v20241219</jetty.version>
 
-        <typesafe-config.version>1.4.3</typesafe-config.version>
+        <typesafe-config.version>1.4.4</typesafe-config.version>
 
-        <commons-lang3.version>3.17.0</commons-lang3.version>
-        <commons-text.version>1.13.0</commons-text.version>
-        <commons-io.version>2.18.0</commons-io.version>
-        <commons-collections4.version>4.4</commons-collections4.version>
+        <commons-lang3.version>3.18.0</commons-lang3.version>
+        <commons-text.version>1.13.1</commons-text.version>
+        <commons-io.version>2.19.0</commons-io.version>
+        <commons-collections4.version>4.5.0</commons-collections4.version>
 
-        <guava.version>33.4.0-jre</guava.version>
+        <guava.version>33.4.8-jre</guava.version>
 
         <quartz.version>2.5.0</quartz.version>
 
@@ -53,16 +53,16 @@
 
         <bcprov-ext-jdk15on.version>1.70</bcprov-ext-jdk15on.version>
         <jbcrypt.version>0.4</jbcrypt.version>
-        <jsch.version>0.1.55</jsch.version>
+        <jsch.version>2.27.2</jsch.version>
 
-        <picocli.version>4.7.6</picocli.version>
+        <picocli.version>4.7.7</picocli.version>
 
         <checkstyle.version>10.21.0</checkstyle.version>
 
         <!-- Test dependency versions -->
 
-        <junit.jupiter.version>5.11.4</junit.jupiter.version>
-        <mockito-core.version>5.15.2</mockito-core.version>
+        <junit.jupiter.version>5.13.3</junit.jupiter.version>
+        <mockito-core.version>5.18.0</mockito-core.version>
     </properties>
 
     <issueManagement>
@@ -242,7 +242,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.jcraft</groupId>
+            <groupId>com.github.mwiede</groupId>
             <artifactId>jsch</artifactId>
             <version>${jsch.version}</version>
         </dependency>
