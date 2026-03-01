@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Mark S. Kolich
+ * Copyright (c) 2026 Mark S. Kolich
  * https://mark.koli.ch
  *
  * Permission is hereby granted, free of charge, to any person
@@ -46,7 +46,7 @@ import static org.quartz.TriggerBuilder.newTrigger;
 @Component
 public final class DeviceRebooterScheduler implements CuracaoComponent {
 
-    private static final String TEST_CONNECTION_COMMAND = "hostname";
+    private static final String TEST_CONNECTION_COMMAND = "uptime";
 
     private final DeviceRebooterConfig deviceRebooterConfig_;
 

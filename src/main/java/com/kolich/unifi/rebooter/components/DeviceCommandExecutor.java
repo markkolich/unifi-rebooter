@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Mark S. Kolich
+ * Copyright (c) 2026 Mark S. Kolich
  * https://mark.koli.ch
  *
  * Permission is hereby granted, free of charge, to any person
@@ -30,6 +30,7 @@ import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 import com.kolich.unifi.rebooter.exceptions.UnifiRebooterException;
+import org.apache.commons.codec.binary.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,19 +42,20 @@ public final class DeviceCommandExecutor {
 
     private static final String EXEC_CHANNEL = "exec";
 
+    @SuppressWarnings("try")
     public static void execute(
             final String hostname,
             final String username,
             final String password,
             final String command) {
         try {
+            final ByteArrayOutputStream os = new ByteArrayOutputStream();
+
             final Session session = new JSch().getSession(username, hostname, 22);
             try (AutoCloseable ignored = session::disconnect) {
                 session.setPassword(password);
                 session.setConfig("StrictHostKeyChecking", "no"); // ignore key issues
                 session.connect();
-
-                final ByteArrayOutputStream os = new ByteArrayOutputStream();
 
                 final ChannelExec channel = (ChannelExec) session.openChannel(EXEC_CHANNEL);
                 try (AutoCloseable ignored1 = channel::disconnect) {
@@ -65,11 +67,11 @@ public final class DeviceCommandExecutor {
                     while (channel.isConnected()) {
                         Thread.sleep(100L);
                     }
-
-                    LOG.info("Successfully executed command on device: {}: {}",
-                            hostname, command);
                 }
             }
+
+            LOG.info("Successfully executed command on device: {}: {} -> {}",
+                    hostname, command, StringUtils.newStringUtf8(os.toByteArray()).trim());
         } catch (final Exception e) {
             throw new UnifiRebooterException("Failed to execute command on device: "
                     + hostname, e);
