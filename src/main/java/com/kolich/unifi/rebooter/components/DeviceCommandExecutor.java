@@ -53,7 +53,7 @@ public final class DeviceCommandExecutor {
 
             final Session session = new JSch().getSession(username, hostname, 22);
             try (AutoCloseable ignored = session::disconnect) {
-                session.setPassword(password);
+                session.setPassword(StringUtils.getBytesUtf8(password));
                 session.setConfig("StrictHostKeyChecking", "no"); // ignore key issues
                 session.connect();
 
