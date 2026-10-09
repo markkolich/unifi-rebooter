@@ -16,7 +16,7 @@ I shouldn't have to do this.
 
 ## Building
 
-This project is built for Java 11, but may work just fine on other versions. YMMV.
+This project requires JDK 21 or later to build, but targets and runs on a Java 11 (or later) runtime.
 
 Clone or fork the repository.
 

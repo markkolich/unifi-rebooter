@@ -36,6 +36,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
 
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
 public final class DeviceCommandExecutor {
 
     private static final Logger LOG = LoggerFactory.getLogger(DeviceCommandExecutor.class);
@@ -70,8 +72,14 @@ public final class DeviceCommandExecutor {
                 }
             }
 
-            LOG.info("Successfully executed command on device: {}: {} -> {}",
-                    hostname, command, StringUtils.newStringUtf8(os.toByteArray()).trim());
+            final String stdout = StringUtils.newStringUtf8(os.toByteArray()).trim();
+            if (isNotBlank(stdout)) {
+                LOG.info("Successfully executed command on device: {}: {} -> {}",
+                        hostname, command, stdout);
+            } else {
+                LOG.info("Successfully executed command on device: {}: {}",
+                        hostname, command);
+            }
         } catch (final Exception e) {
             throw new UnifiRebooterException("Failed to execute command on device: "
                     + hostname, e);
