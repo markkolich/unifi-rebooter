@@ -27,27 +27,27 @@
 package com.kolich.unifi.rebooter.mappers.response.freemarker;
 
 import com.kolich.unifi.rebooter.components.config.UnifiRebooterConfig;
-import com.kolich.unifi.rebooter.components.freemarker.FreeMarkerContentToString;
-import com.kolich.unifi.rebooter.entities.freemarker.FreeMarkerContent;
-import com.kolich.unifi.rebooter.mappers.response.AbstractFreeMarkerContentAwareResponseMapper;
+import com.kolich.unifi.rebooter.components.freemarker.FreeMarkerContentRenderer;
 import curacao.annotations.Injectable;
 import curacao.annotations.Mapper;
 import curacao.core.servlet.AsyncContext;
 import curacao.core.servlet.HttpResponse;
+import curacao.freemarker.entities.FreeMarkerContent;
+import curacao.freemarker.mappers.AbstractFreeMarkerContentResponseMapper;
 
 import javax.annotation.Nonnull;
 
 @Mapper
 public final class FreeMarkerContentResponseMapper
-        extends AbstractFreeMarkerContentAwareResponseMapper<FreeMarkerContent> {
+        extends AbstractFreeMarkerContentResponseMapper<FreeMarkerContent> {
 
     private final UnifiRebooterConfig unifiRebooterConfig_;
 
     @Injectable
     public FreeMarkerContentResponseMapper(
-            final FreeMarkerContentToString fmContentToString,
+            final FreeMarkerContentRenderer fmcRenderer,
             final UnifiRebooterConfig unifiRebooterConfig) {
-        super(fmContentToString);
+        super(fmcRenderer);
         unifiRebooterConfig_ = unifiRebooterConfig;
     }
 

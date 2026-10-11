@@ -28,10 +28,11 @@ package com.kolich.unifi.rebooter.controllers;
 
 import com.kolich.unifi.rebooter.components.DeviceRebooterConfig;
 import com.kolich.unifi.rebooter.components.config.UnifiRebooterConfig;
-import com.kolich.unifi.rebooter.entities.freemarker.FreeMarkerContent;
+import com.kolich.unifi.rebooter.components.freemarker.UnifiRebooterFreeMarkerContent;
 import curacao.annotations.Controller;
 import curacao.annotations.Injectable;
 import curacao.annotations.RequestMapping;
+import curacao.freemarker.entities.FreeMarkerContent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,7 +53,7 @@ public final class Index extends AbstractUnifiRebooterFreeMarkerController {
 
     @RequestMapping(value = "^/$")
     public FreeMarkerContent index() throws Exception {
-        return new FreeMarkerContent.Builder("templates/index.ftl")
+        return UnifiRebooterFreeMarkerContent.newHtmlBuilder("templates/index.ftl")
                 .withAttr("devices", deviceRebooterConfig_.getDevicesToReboot())
                 .build();
     }
